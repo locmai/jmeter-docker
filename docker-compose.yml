@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+
+  master:
+    image: locmai/jmeter-master
+    container_name: master
+    tty: true
+    hostname: master
+    networks:
+      - local
+  slave:
+    image: locmai/jmeter-slave
+    tty: true
+    networks:
+      - local
+  
+networks:
+  local:
+    driver: bridge

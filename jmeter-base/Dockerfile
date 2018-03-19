@@ -1,6 +1,6 @@
 # Use Ubuntu
 FROM ubuntu
-MAINTAINER TestAutomationGuru
+MAINTAINER Loc Mai (original: TestAutomationGuru)
 
 # Install wger & JRE
 RUN apt-get clean && \
@@ -12,19 +12,21 @@ RUN apt-get clean && \
 				iputils-ping \
 				unzip
 
+ARG JMETER_VERSION="3.3"
+
 # Install jmeter
 RUN   mkdir /jmeter \
       && cd /jmeter/ \
-      && wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-2.13.tgz \
-      && tar -xzf apache-jmeter-2.13.tgz \
-      && rm apache-jmeter-2.13.tgz \
+      && wget --no-check-certificate https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-3.3.tgz \
+      && tar -xzf apache-jmeter-${JMETER_VERSION}.tgz \
+      && rm apache-jmeter-${JMETER_VERSION}.tgz \
 	  && mkdir /jmeter-plugins \
 	  && cd /jmeter-plugins/ \
-	  && wget https://jmeter-plugins.org/downloads/file/JMeterPlugins-ExtrasLibs-1.4.0.zip \
-	  && unzip -o JMeterPlugins-ExtrasLibs-1.4.0.zip -d /jmeter/apache-jmeter-2.13/
+	  && wget --no-check-certificate https://jmeter-plugins.org/downloads/file/JMeterPlugins-ExtrasLibs-1.4.0.zip \
+	  && unzip -o JMeterPlugins-ExtrasLibs-1.4.0.zip -d /jmeter/apache-jmeter-${JMETER_VERSION}/
 
 # Set Jmeter Home
-ENV JMETER_HOME /jmeter/apache-jmeter-2.13/
+ENV JMETER_HOME /jmeter/apache-jmeter-${JMETER_VERSION}/
 
 # Add Jmeter to the Path
 ENV PATH $JMETER_HOME/bin:$PATH
