@@ -27,6 +27,9 @@ RUN   mkdir /jmeter \
 
 COPY CoE-JMeter-Report-plugin-1.69.jar /jmeter/apache-jmeter-${JMETER_VERSION}/lib/ext
 
+# Copy demo test plan
+COPY demo.jmx /jmeter/apache-jmeter-${JMETER_VERSION}/bin
+
 # Set Jmeter Home
 ENV JMETER_HOME /jmeter/apache-jmeter-${JMETER_VERSION}/
 
